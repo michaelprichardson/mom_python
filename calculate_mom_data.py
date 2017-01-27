@@ -8,10 +8,9 @@ Created on Tue Jan 24 16:50:34 2017
 import parameters as params
 import math
 import numpy as np
-import post_processing as pp
 import point
-import gaussian_quadrature as gauss
 from scipy import special
+import post_processing as pp
 
 def calculate_mom(segs):
     centers = calculate_seg_centers(segs)
@@ -105,9 +104,7 @@ def calculate_e_scat(curr, segs):
             for n in range(0, num_elem):
 
                 fp_ez_data[k][0] = fp_ez_data[k][0] + z*curr[m][n]
-                
-        print('Calculated {} points'.format(k))
-            
+                           
     return fp_ez_data
     
 def get_seg_centers(segs):
