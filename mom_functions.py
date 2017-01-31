@@ -42,7 +42,6 @@ def create_e_inc(node_coords, num_elem, elem_nodes):
     for m in range(0, num_elem):
         x = (node_coords[elem_nodes[m][0]][0] + node_coords[elem_nodes[m][1]][0])/2
         y = (node_coords[elem_nodes[m][0]][1] + node_coords[elem_nodes[m][1]][1])/2
-#        print(m)
         b_vec[m][0] = np.exp(1j*params.k0*(x*np.cos(params.phi_inc) + y*np.sin(params.phi_inc)))
         
     return b_vec.reshape(num_elem, 1)
@@ -68,5 +67,7 @@ def calculate_scat(curr, node_coords, num_elem, elem_nodes):
             z = (params.k0*params.eta0/4)*wn*(np.sqrt(2/(params.pi*xx))*np.exp(-1j*(xx-(params.pi/4))))
             
             e_scat[obs][0] = e_scat[obs][0] + z*curr[n][0]
+    
+    print(e_scat.shape)
             
     return e_scat

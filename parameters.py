@@ -19,11 +19,15 @@ eta0            = np.sqrt(mu0/eps0)
 gam             = 1.781072418
 phi_inc         = 0
 
-num_fieldpoints = 360
-phi_fieldpoints = np.arange(0, pi, pi/num_fieldpoints)
+num_fieldpoints = 720
+phi_fieldpoints = np.arange(0, 2*pi, 2*pi/num_fieldpoints)
 rad_fieldpoints = 100*lam0
 line_length     = 10*lam0
+circle_rad      = 5*lam0
+refl_line_len   = 8*lam0
+refl_len        = 4*lam0
+spacing         = 2*lam0
 
 meshsize_solve  = lam0/10
 
-plot_angs       = np.arange(0, 180, 0.5)
+plot_angs       = np.arange(0, 360, 0.5)
