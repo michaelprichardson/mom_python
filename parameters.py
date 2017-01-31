@@ -1,53 +1,29 @@
 # -*- coding: utf-8 -*-
 """
-Created on Tue Jan 17 10:18:21 2017
+Created on Mon Jan 30 20:44:57 2017
 
-@author: mrichardson
+@author: michael
 """
 
-import math
+import numpy as np
 
-# Debug level
-DEBUG          = 1
+pi              = np.pi
+eps0            = 8.854e-12
+mu0             = 4*pi*1e-7
+c0              = 2.99792458e8
+freq            = 300e6
+freq_range      = [150e6, 50e6, 450e6]
+lam0            = c0/freq
+k0              = 2*pi/lam0
+eta0            = np.sqrt(mu0/eps0)
+gam             = 1.781072418
+phi_inc         = 0
 
-# Frequency of simulation
-FREQUENCY      = 1e9;
+num_fieldpoints = 360
+phi_fieldpoints = np.arange(0, pi, pi/num_fieldpoints)
+rad_fieldpoints = 100*lam0
+line_length     = 10*lam0
 
-# Incident angle of plane wave
-INCIDENT_ANGLE = 0;
+meshsize_solve  = lam0/10
 
-# Gaussian quadrature setting
-GAUSSIAN_QUADRATURE = 5
-
-# Number of reflections for methods
-NUM_MRPO_REFLECTIONS = 7
-MAX_IPO_REFLECTIONS = 30
-    
-# Electromagnetic constants
-E_0            = 1
-PI             = 3.14159265358979323846;
-EPS_0          = 8.854e-12;
-MU_0           = PI*4e-7;
-C_0            = 1/math.sqrt(EPS_0*MU_0);
-LAM_0          = C_0/FREQUENCY;
-K_0            = 2*PI/LAM_0;
-ETA_0          = math.sqrt(MU_0/EPS_0);
-OMEGA          = 2*PI*FREQUENCY;
-GAM_0          = 1.781072418
-
-# Maximum size of mesh element
-MAX_MESH_SIZE  = LAM_0/10;
-
-# Value for zero (computational errors)
-ZERO           = 1e-6
-
-# Start phi value
-PHI_START      = 0;
-# End phi value
-PHI_END        = 180;
-# Increment phi value
-PHI_INCREMENT  = 1;
-# Phi radius
-PHI_RADIUS     = 1000*LAM_0;
-
-PLANE_WAVE_SHADOW_DIST = 100*LAM_0
+plot_angs       = np.arange(0, 180, 0.5)

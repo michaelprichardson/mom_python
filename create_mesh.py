@@ -1,164 +1,54 @@
 # -*- coding: utf-8 -*-
 """
-Created on Tue Jan 17 14:53:38 2017
+Created on Mon Jan 30 20:27:49 2017
 
-@author: mrichardson
+@author: michael
 """
 
+import numpy as np
 import parameters as params
-import point
-import segment
-import math
+
+length = params.line_length
+elem_size = params.meshsize_solve
 
 def create_line():
-    side_length = 20*params.LAM_0
+    num_elem = int(round(length/elem_size))+1
+    node_coords = np.zeros((num_elem, 2))
+    curr_node = np.array([0, -length/2])
         
-    m_length = params.MAX_MESH_SIZE
-    mesh = []
+    for ii in range(0, num_elem):
+        node_coords[ii] = curr_node
+        curr_node = np.array([0, curr_node[1] + elem_size])
+        
+    elem_nodes = np.zeros((num_elem, 2))
     
-    n_segs = int(side_length/m_length)
-
-    for ii in range(0, n_segs/2):
-        if ii == 0:
-            p_start = point.Point(0.0, 0.0)
-            n_start = point.Point(0.0, 0.0)
-        else:
-            start_val = ii*m_length
-            p_start = point.Point(0.0, start_val)
-            n_start = point.Point(0.0, -start_val)
-            
-        next_val = (ii+1)*m_length
-        p_end = point.Point(0.0, next_val)
-        n_end = point.Point(0.0, -next_val)
-        
-        p_seg = segment.Segment(p_start, p_end)
-        n_seg = segment.Segment(n_start, n_end)
-        
-        mesh.append(p_seg)
-        mesh.append(n_seg)
-        
-    return mesh
-
+    for ii in range(0, num_elem):
+        elem_nodes[ii] = np.array([ii, ii+1])
+    
+    return {"num_elem": num_elem, "node_coords": node_coords, "elem_nodes": elem_nodes}
+    
 def create_reflector():
-    side_length = 10*params.LAM_0
-    m_length = params.MAX_MESH_SIZE
-    n_segs = int(side_length/m_length)
+    num_elem = 2*(int(round(length/elem_size)))
+    node_coords = np.zeros((num_elem, 2))
+    curr_node = np.array([0, 0])
     
-    mesh = []
-       
-    for ii in range(0, n_segs):
-        if ii == 0:
-            p_start = point.Point(0.0, 0.0)
-            n_start = point.Point(0.0, 0.0)
-        else:
-            start_val = ii*m_length
-            p_start = point.Point(start_val, start_val)
-            n_start = point.Point(start_val, -start_val)
-            
-        next_val = (ii+1)*m_length
-        p_end = point.Point(next_val, next_val)
-        n_end = point.Point(next_val, -next_val)
-        
-        p_seg = segment.Segment(p_start, p_end)
-        n_seg = segment.Segment(n_start, n_end)
-        
-        mesh.append(p_seg)
-        mesh.append(n_seg)
+    count = 0
     
-    return mesh
+    for ii in range(0, int(num_elem/2)):
+        node_coords[count] = curr_node
+        curr_node = np.array([(ii+1)*elem_size, (ii+1)*elem_size])
+        count = count + 1
     
-def create_circle():
-    radius = 10*params.LAM_0
-    circum = 2*params.PI*radius
-    m_length = params.MAX_MESH_SIZE
-    n_segs = int(circum/m_length)
-    ang_inc = 2*params.PI/n_segs
+    curr_node = np.array([0, 0])
+        
+    for ii in range(0, int(num_elem/2)):
+        node_coords[count] = curr_node
+        curr_node = np.array([(ii+1)*elem_size, -1*(ii+1)*elem_size])
+        count = count + 1
     
-    mesh = []
-       
-    for ii in range(0, n_segs):
-        if ii == 0:
-            start = point.Point(radius, 0.0)
-        else:
-            start_ang = ii*ang_inc
-            start = point.Point(radius*math.cos(start_ang), radius*math.sin(start_ang))
-            
-        next_ang = (ii+1)*ang_inc
-        end = point.Point(radius*math.cos(next_ang), radius*math.sin(next_ang))
-        
-        seg = segment.Segment(start, end)
-        
-        mesh.append(seg)
+    elem_nodes = np.zeros((num_elem, 2))
     
-    return mesh
-
-def create_line_with_angled_edge():
-    side_length = 10*params.LAM_0
-    ang_length = 5*params.LAM_0
-    obs_length = 8*params.LAM_0
-    dist_away = 4*params.LAM_0
-    shift_obs = 1*params.LAM_0
-    
-    m_length = params.MAX_MESH_SIZE
-    mesh = []
-    
-    n_segs = int(side_length/m_length)
-
-    for ii in range(0, n_segs/2):
-        if ii == 0:
-            p_start = point.Point(0.0, 0.0)
-            n_start = point.Point(0.0, 0.0)
-        else:
-            start_val = ii*m_length
-            p_start = point.Point(0.0, start_val)
-            n_start = point.Point(0.0, -start_val)
-            
-        next_val = (ii+1)*m_length
-        p_end = point.Point(0.0, next_val)
-        n_end = point.Point(0.0, -next_val)
+    for ii in range(0, num_elem):
+        elem_nodes[ii] = np.array([ii, ii+1])
         
-        p_seg = segment.Segment(p_start, p_end)
-        n_seg = segment.Segment(n_start, n_end)
-        
-        mesh.append(p_seg)
-        mesh.append(n_seg)
-        
-    n_segs = int(ang_length/m_length)
-    
-    for ii in range(0, n_segs):
-        if ii == 0:
-            start = point.Point(0.0, ang_length)
-        else:
-            start_val = ii*m_length
-            start = point.Point(start_val, start_val + ang_length)
-            
-        next_val = (ii+1)*m_length
-        end = point.Point(next_val, next_val + ang_length)
-        
-        seg = segment.Segment(start, end)
-        
-        mesh.append(seg)
-        
-    n_segs = int(obs_length/m_length)
-    
-    for ii in range(0, n_segs/2):
-        if ii == 0:
-            p_start = point.Point(dist_away, 0.0 + shift_obs)
-            n_start = point.Point(dist_away, 0.0 + shift_obs)
-        else:
-            start_val = ii*m_length
-            p_start = point.Point(dist_away, start_val + shift_obs)
-            n_start = point.Point(dist_away, -start_val + shift_obs)
-            
-        next_val = (ii+1)*m_length
-        p_end = point.Point(dist_away, next_val + shift_obs)
-        n_end = point.Point(dist_away, -next_val + shift_obs)
-        
-        p_seg = segment.Segment(p_start, p_end)
-        n_seg = segment.Segment(n_start, n_end)
-        
-        mesh.append(p_seg)
-        mesh.append(n_seg)
-        
-    return mesh
-    
+    return {"num_elem": num_elem, "node_coords": node_coords, "elem_nodes": elem_nodes}
