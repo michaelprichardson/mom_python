@@ -7,6 +7,7 @@ Created on Tue Jan 31 12:28:40 2017
 
 import matplotlib.pyplot as plt
 import parameters as params
+import numpy as np
 
 def plot_mesh(node_coords):
     plt.figure(1)
@@ -29,3 +30,15 @@ def plot_scatter(scattering):
     plt.plot(params.plot_angs, scattering.real, label='MoM')
     plt.grid(True)
     plt.show()
+    
+def plot_scat_polar(scattering):
+    plt.figure(3)
+    ax = plt.subplot(projection='polar')
+    ax.plot(params.phi_fieldpoints, scattering)
+    ax.set_rmax(np.max(scattering) + 5)
+    ax.grid(True)
+    ax.set_xlabel(r'$\phi$ [degrees]')
+#    ax.set_ylabel(r'$\sigma_{2D}$ [dB]')
+    ax.set_title("2D RCS Real", y=1.07)
+    plt.show()
+    

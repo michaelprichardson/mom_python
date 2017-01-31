@@ -7,6 +7,7 @@ Created on Tue Jan 17 09:33:31 2017
 
 import math
 from point import Point
+import numpy as np
 import useful_functions as uf
 
 class Segment(object):

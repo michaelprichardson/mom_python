@@ -12,7 +12,7 @@ import numpy as np
 def fill_z_mat(node_coords, num_elem, elem_nodes):
         
     z = np.zeros((num_elem, num_elem), dtype=complex)
-    
+        
     for m in range(0, num_elem):
         
         xm = (node_coords[elem_nodes[m][0]][0] + node_coords[elem_nodes[m][1]][0])/2

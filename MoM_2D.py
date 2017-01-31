@@ -39,7 +39,7 @@ curr = np.dot(np.linalg.inv(A_mat), b_vec)
 # Calculate scatter field and convert to dB
 start = time.time()
 scat = mom.calculate_scat(curr, node_coords, num_elem-1, elem_nodes)
-scat = 20*np.log10(np.sqrt(2*np.pi*params.rad_fieldpoints)*np.abs(scat))
+scat = 20*np.log10(np.sqrt(2*np.pi*params.rad_fieldpoints)*np.abs(scat)) # Not sure if this should be 10 or 20
 
 print("Scatter calculation took {:.2f}s".format(time.time() - start))
 
@@ -48,5 +48,6 @@ plot.plot_mesh(node_coords)
 
 # Plot real scatter field
 plot.plot_scatter(scat)
+plot.plot_scat_polar(scat)
 
 print("Finished MoM calculation in {:.2f}s".format(time.time() - s))
