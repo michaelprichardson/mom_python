@@ -29,16 +29,37 @@ def fill_z_mat(node_coords, num_elem, elem_nodes, n_gaus=params.gaus_default):
                 wm = np.sqrt( np.power((node_coords[elem_nodes[m][0]][0] - node_coords[elem_nodes[m][1]][0]), 2) + np.power((node_coords[elem_nodes[m][0]][1] + node_coords[elem_nodes[m][1]][1]), 2) )
                 z[m][n] = ( params.k0*params.eta0*(wm)/4 )*( 1 - (1j*2/params.pi)*(np.log(params.gam*params.k0*wm/4) - 1 ) )
             else:
-                xn = ((node_coords[elem_nodes[n][0]][0]) + (node_coords[elem_nodes[n][1]][0]))/2
-                yn = ((node_coords[elem_nodes[n][0]][1]) + (node_coords[elem_nodes[n][1]][1]))/2
-                        
-                r = np.sqrt( np.power((xm - xn), 2) + np.power((ym - yn), 2) )
-                xx = params.k0*r
+#                xn = ((node_coords[elem_nodes[n][0]][0]) + (node_coords[elem_nodes[n][1]][0]))/2
+#                yn = ((node_coords[elem_nodes[n][0]][1]) + (node_coords[elem_nodes[n][1]][1]))/2
+#                        
+#                r = np.sqrt( np.power((xm - xn), 2) + np.power((ym - yn), 2) )
+#                xx = params.k0*r
+            
+                vec_x = node_coords[elem_nodes[n][1]][0] - node_coords[elem_nodes[n][0]][0]
+                vec_y = node_coords[elem_nodes[n][1]][1] - node_coords[elem_nodes[n][0]][1]
+                norm = np.sqrt((vec_x*vec_x + vec_y*vec_y))
+                vec_x = vec_x/norm
+                vec_y = vec_y/norm
+                
+                print("vec_x: {:f} vec_y: {:f}".format(vec_x, vec_y))
+                print("x: {:f} y: {:f}".format(node_coords[elem_nodes[n][1]][0], node_coords[elem_nodes[n][1]][1]))
+                
+                temp_gaus = 0
                 
                 for k in range(0, n_gaus):
+                    xn = ((node_coords[elem_nodes[n][0]][0]) + (vec_x*gaus[k][1]))/2
+                    yn = ((node_coords[elem_nodes[n][0]][1]) + (vec_y*gaus[k][1]))/2
+                    print("xn: {:f} yn: {:f}".format(xn, yn))
+                            
+                    r = np.sqrt( np.power((xm - xn), 2) + np.power((ym - yn), 2) )
+                    xx = params.k0*r
+                
                     wn = gaus[k][1]*np.sqrt( np.power((node_coords[elem_nodes[n][0]][0] - node_coords[elem_nodes[n][1]][0]), 2) + np.power((node_coords[elem_nodes[n][0]][1] + node_coords[elem_nodes[n][1]][1]), 2) )
     #                z[m][n] = (params.k0*params.eta0/4)*wn*(np.sqrt(2/(params.pi*xx))*np.exp(-1j*(xx-(params.pi/4))))
                     z[m][n] = (params.k0*params.eta0/4)*wn*special.hankel2(0, xx)
+                    temp_gaus = temp_gaus + gaus[k][1]
+                    
+                print("------------------------")
                 
     return -z
     
