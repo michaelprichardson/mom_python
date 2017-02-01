@@ -31,3 +31,6 @@ spacing         = 2*lam0
 meshsize_solve  = lam0/10
 
 plot_angs       = np.arange(0, 360, 0.5)
+
+gaus_default    = 2
+gaus_quads      = [1, 3, 5, 9]

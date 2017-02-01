@@ -44,10 +44,10 @@ scat = 20*np.log10(np.sqrt(2*np.pi*params.rad_fieldpoints)*np.abs(scat)) # Not s
 print("Scatter calculation took {:.2f}s".format(time.time() - start))
 
 # Plot mesh
-plot.plot_mesh(node_coords)
+#plot.plot_mesh(node_coords)
 
 # Plot real scatter field
 plot.plot_scatter(scat)
-plot.plot_scat_polar(scat)
+#plot.plot_scat_polar(scat)
 
 print("Finished MoM calculation in {:.2f}s".format(time.time() - s))

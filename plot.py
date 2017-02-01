@@ -42,3 +42,4 @@ def plot_scat_polar(scattering):
     ax.set_title("2D RCS Real", y=1.07)
     plt.show()
     
+#def plot_multiple_plots(data):

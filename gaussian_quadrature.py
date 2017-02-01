@@ -1,0 +1,115 @@
+# -*- coding: utf-8 -*-
+"""
+Created on Wed Jan 18 18:35:15 2017
+
+@author: michael
+"""
+
+def getGaussianQuadrature(n):
+    fnc = [getGaussianQuadrature1(),
+		   getGaussianQuadrature2(),
+		   getGaussianQuadrature3(),
+		   getGaussianQuadrature4(),
+		   getGaussianQuadrature5(),
+		   getGaussianQuadrature6(),
+		   getGaussianQuadrature7(),
+		   getGaussianQuadrature8(),
+		   getGaussianQuadrature9(),
+		   getGaussianQuadrature10()]
+		   
+    return fnc[n-1]
+
+def getGaussianQuadrature1():
+    gauss = []
+    gauss.append([5.0000000000000000e-001, 1.0000000000000000e+000])
+    return gauss
+	
+def getGaussianQuadrature2():
+    gauss = []
+    gauss.append([2.1132486540518708e-001, 4.9999999999999989e-001])
+    gauss.append([7.8867513459481287e-001, 4.9999999999999989e-001])
+    return gauss
+	
+def getGaussianQuadrature3():
+    gauss = []
+    gauss.append([1.1270166537925824e-001, 2.7777777777777768e-001])
+    gauss.append([5.0000000000000000e-001, 4.4444444444444425e-001])
+    gauss.append([8.8729833462074170e-001, 2.7777777777777779e-001])
+    return gauss
+	
+def getGaussianQuadrature4():
+    gauss = []
+    gauss.append([6.9431844202973714e-002, 1.7392742256872706e-001])
+    gauss.append([3.3000947820757182e-001, 3.2607257743127316e-001])
+    gauss.append([6.6999052179242813e-001, 3.2607257743127299e-001])
+    gauss.append([9.3056815579702634e-001, 1.7392742256872701e-0011])
+    return gauss
+    
+def getGaussianQuadrature5():
+    gauss = []
+    gauss.append([4.6910077030668074e-002, 1.1846344252809456e-001])
+    gauss.append([2.3076534494715845e-001, 2.3931433524968337e-001])
+    gauss.append([5.0000000000000000e-001, 2.8444444444444444e-001])
+    gauss.append([7.6923465505284150e-001, 2.3931433524968343e-001])
+    gauss.append([9.5308992296933193e-001, 1.1846344252809445e-001])
+    return gauss
+	
+def getGaussianQuadrature6():
+    gauss = []
+    gauss.append([3.3765242898423975e-002, 8.5662246189585289e-002])
+    gauss.append([1.6939530676686776e-001, 1.8038078652406928e-001])
+    gauss.append([3.8069040695840151e-001, 2.3395696728634516e-001])
+    gauss.append([6.1930959304159849e-001, 2.3395696728634591e-001])
+    gauss.append([8.3060469323313224e-001, 1.8038078652406928e-001])
+    gauss.append([9.6623475710157614e-001, 8.5662246189585220e-002])
+    return gauss
+    
+def getGaussianQuadrature7():
+    gauss = []
+    gauss.append([2.5446043828620812e-002, 6.4742483084434824e-002])
+    gauss.append([1.2923440720030277e-001, 1.3985269574463838e-001])
+    gauss.append([2.9707742431130146e-001, 1.9091502525255943e-001])
+    gauss.append([4.9999999999999994e-001, 2.0897959183673431e-001])
+    gauss.append([7.0292257568869854e-001, 1.9091502525255952e-001])
+    gauss.append([8.7076559279969734e-001, 1.3985269574463827e-001])
+    gauss.append([9.7455395617137919e-001, 6.4742483084434907e-002])
+    return gauss
+
+def getGaussianQuadrature8():
+    gauss = []
+    gauss.append([1.9855071751231967e-002, 5.0614268145188081e-002])
+    gauss.append([1.0166676129318664e-001, 1.1119051722668732e-001])
+    gauss.append([2.3723379504183539e-001, 1.5685332293894375e-001])
+    gauss.append([4.0828267875217511e-001, 1.8134189168918130e-001])
+    gauss.append([5.9171732124782506e-001, 1.8134189168918088e-001])
+    gauss.append([7.6276620495816438e-001, 1.5685332293894350e-001])
+    gauss.append([8.9833323870681348e-001, 1.1119051722668724e-001])
+    gauss.append([9.8014492824876820e-001, 5.0614268145188233e-002])
+    return gauss
+    
+def getGaussianQuadrature9():
+    gauss = []
+    gauss.append([1.5919880246187068e-002, 4.0637194180787220e-002])
+    gauss.append([8.1984446336682226e-002, 9.0324080347428781e-002])
+    gauss.append([1.9331428364970477e-001, 1.3030534820146772e-001])
+    gauss.append([3.3787328829809554e-001, 1.5617353852000160e-001])
+    gauss.append([5.0000000000000000e-001, 1.6511967750062978e-001])
+    gauss.append([6.6212671170190451e-001, 1.5617353852000107e-001])
+    gauss.append([8.0668571635029529e-001, 1.3030534820146761e-001])
+    gauss.append([9.1801555366331766e-001, 9.0324080347428615e-002])
+    gauss.append([9.8408011975381293e-001, 4.0637194180787151e-002])
+    return gauss
+	
+def getGaussianQuadrature10():
+    gauss = []
+    gauss.append([1.3046735741414073e-002, 3.3335672154344055e-002])
+    gauss.append([6.7468316655507898e-002, 7.4725674575290474e-002])
+    gauss.append([1.6029521585048767e-001, 1.0954318125799090e-001])
+    gauss.append([2.8330230293537639e-001, 1.3463335965499817e-001])
+    gauss.append([4.2556283050918453e-001, 1.4776211235737666e-001])
+    gauss.append([5.7443716949081558e-001, 1.4776211235737630e-001])
+    gauss.append([7.1669769706462361e-001, 1.3463335965499804e-001])
+    gauss.append([8.3970478414951222e-001, 1.0954318125799063e-001])
+    gauss.append([9.3253168334449221e-001, 7.4725674575290349e-002])
+    gauss.append([9.8695326425858587e-001, 3.3335672154344208e-002])
+    return gauss
