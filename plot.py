@@ -6,6 +6,7 @@ Created on Tue Jan 31 12:28:40 2017
 """
 
 import matplotlib.pyplot as plt
+import matplotlib.cm as cm
 import parameters as params
 import numpy as np
 
@@ -42,4 +43,21 @@ def plot_scat_polar(scattering):
     ax.set_title("2D RCS Real", y=1.07)
     plt.show()
     
-#def plot_multiple_plots(data):
+def plot_multiple_plots(data):
+    
+    x = np.arange(params.num_quads)
+    ys = [ii + x + (ii*x)**2 for ii in range(10)]
+    
+    colors = cm.rainbow(np.linspace(0, 1, len(ys)))
+    
+    plt.figure(2)
+    plt.title('2D RCS Real')
+    plt.xlabel(r'$\phi$ [degrees]')
+    plt.ylabel(r'$\sigma_{2D}$ [dB]')
+    plt.grid(True)
+    
+    for ii in range(0, params.num_quads):
+        plt.plot(params.plot_angs, data[ii][0].real, color=colors[ii], label="{} Gauss Quad".format(ii))
+    
+    plt.legend(bbox_to_anchor=(0., 1.02, 1., .102), loc=3, ncol=2, mode="expand", borderaxespad=0.)
+    plt.show()

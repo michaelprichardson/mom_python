@@ -14,40 +14,59 @@ import time
 
 mesh_functions = [mesh.create_line(), mesh.create_reflector()]
 
-s = time.time()
+def run_mom_on_model(num_model):
 
-# Generate mesh
-start = time.time()
-msh = mesh_functions[0]
+    s = time.time()
+    
+    # Generate mesh
+    start = time.time()
+    msh = mesh_functions[num_model]
+    
+    print("Generating mesh took {:.2f}s".format(time.time() - start))
+    
+    node_coords = msh['node_coords']
+    num_elem = msh['num_elem']
+    elem_nodes = msh['elem_nodes']
+    
+    # Calculate A matrix and b vector
+    start = time.time()
+    A_mat = mom.fill_z_mat(node_coords, num_elem-1, elem_nodes)
+    b_vec = mom.create_e_inc(node_coords, num_elem-1, elem_nodes)
+    
+    print("Filling matrices took {:.2f}s".format(time.time() - start))
+    
+    # Calculate current vector
+    curr = np.dot(np.linalg.inv(A_mat), b_vec)
+    
+    # Calculate scatter field and convert to dB
+    start = time.time()
+    scat = mom.calculate_scat(curr, node_coords, num_elem-1, elem_nodes)
+    scat = mom.calculate_db_scat(scat)
+    
+    print("Scatter calculation took {:.2f}s".format(time.time() - start))
+    
+    # Plot mesh
+    plot.plot_mesh(node_coords)
+    
+    # Plot real scatter field
+    plot.plot_scatter(scat)
+    plot.plot_scat_polar(scat)
+    
+    print("Finished MoM calculation in {:.2f}s".format(time.time() - s))
+    
+def run_mom_multiple_gaus_quads(num_model):    
 
-print("Generating mesh took {:.2f}s".format(time.time() - start))
+    # Generate mesh
+    msh = mesh_functions[num_model]
+        
+    node_coords = msh['node_coords']
+    num_elem = msh['num_elem']
+    elem_nodes = msh['elem_nodes']
+    
+    data = mom.calculate_mom_different_quads(node_coords, num_elem-1, elem_nodes)
+        
+    plot.plot_multiple_plots(data)
+    
+run_mom_on_model(0)
 
-node_coords = msh['node_coords']
-num_elem = msh['num_elem']
-elem_nodes = msh['elem_nodes']
-
-# Calculate A matrix and b vector
-start = time.time()
-A_mat = mom.fill_z_mat(node_coords, num_elem-1, elem_nodes)
-b_vec = mom.create_e_inc(node_coords, num_elem-1, elem_nodes)
-
-print("Filling matrices took {:.2f}s".format(time.time() - start))
-
-# Calculate current vector
-curr = np.dot(np.linalg.inv(A_mat), b_vec)
-
-# Calculate scatter field and convert to dB
-start = time.time()
-scat = mom.calculate_scat(curr, node_coords, num_elem-1, elem_nodes)
-scat = 20*np.log10(np.sqrt(2*np.pi*params.rad_fieldpoints)*np.abs(scat)) # Not sure if this should be 10 or 20
-
-print("Scatter calculation took {:.2f}s".format(time.time() - start))
-
-# Plot mesh
-#plot.plot_mesh(node_coords)
-
-# Plot real scatter field
-plot.plot_scatter(scat)
-#plot.plot_scat_polar(scat)
-
-print("Finished MoM calculation in {:.2f}s".format(time.time() - s))
+#run_mom_multiple_gaus_quads(0)

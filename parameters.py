@@ -11,7 +11,7 @@ pi              = np.pi
 eps0            = 8.854e-12
 mu0             = 4*pi*1e-7
 c0              = 2.99792458e8
-freq            = 300e6
+freq            = 1e9
 freq_range      = [150e6, 50e6, 450e6]
 lam0            = c0/freq
 k0              = 2*pi/lam0
@@ -33,4 +33,5 @@ meshsize_solve  = lam0/10
 plot_angs       = np.arange(0, 360, 0.5)
 
 gaus_default    = 2
-gaus_quads      = [1, 3, 5, 9]
+gaus_quads      = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
+num_quads       = len(gaus_quads)
