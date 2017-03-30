@@ -108,7 +108,7 @@ def calculate_scat(curr, node_coords, num_elem, elem_nodes, n_gaus=params.gaus_d
             
             wn = np.sqrt( np.power((node_coords[elem_nodes[n][0]][0] - node_coords[elem_nodes[n][1]][0]), 2) + np.power((node_coords[elem_nodes[n][0]][1] + node_coords[elem_nodes[n][1]][1]), 2) )
 #            z = (params.k0*params.eta0/4)*wn*(np.sqrt(2/(params.pi*xx))*np.exp(-1j*(xx-(params.pi/4))))
-            z = (params.k0*params.eta0/4)*wn*special.hankel2(0, xx)
+            z = const*wn*special.hankel2(0, xx)
             
 #            start_node_x = node_coords[elem_nodes[n][0]][0]
 #            start_node_y = node_coords[elem_nodes[n][0]][1]
