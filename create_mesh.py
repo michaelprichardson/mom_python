@@ -24,7 +24,7 @@ def create_line():
     
     for ii in range(0, num_elem):
         elem_nodes[ii] = np.array([ii, ii+1])
-    
+    elem_nodes=elem_nodes.astype(int)
     return {"num_elem": num_elem, "node_coords": node_coords, "elem_nodes": elem_nodes}
     
 def create_reflector():
